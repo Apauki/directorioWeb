@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <!-- Aquí puedes incluir el encabezado común de tu sitio -->
+        <h1>Directorio interno INAMHI</h1>
+        <nav>
+            <!-- Aquí puedes incluir la navegación común de tu sitio -->
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/nuevo/">Registros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Aquí puedes incluir el pie de página común de tu sitio -->
+        <p>Derechos reservados &copy; 2023</p>
+    </footer>
+</body>
+</html
