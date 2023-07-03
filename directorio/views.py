@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Registro
 from .forms import RegistroForm
 
+
 def lista_registros(request):
     registros = Registro.objects.all()
     return render(request, 'lista_registros.html', {'registros': registros})
@@ -11,9 +12,10 @@ def agregar_registro(request):
         form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('agregar_registro')
+            return redirect('directorio:lista_registros')
     else:
         form = RegistroForm()
+
     return render(request, 'agregar_registro.html', {'form': form})
 
 def editar_registro(request, numero_registro):
