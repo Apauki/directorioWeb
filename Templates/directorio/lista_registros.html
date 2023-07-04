@@ -16,6 +16,8 @@
           <th>Teléfono Institucional</th>
           <th>Extensión Telefónica</th>
           <th>Correo Electrónico</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +32,10 @@
             <td>{{ registro.telefono_institucional }}</td>
             <td>{{ registro.extension_telefonica }}</td>
             <td>{{ registro.correo_electronico }}</td>
+            <td>
+              <a href="{% url 'directorio:editar_registro' registro.numero_registro %}">Editar</a>
+              <a href="{% url 'directorio:eliminar_registro' registro.numero_registro %}">Eliminar</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>

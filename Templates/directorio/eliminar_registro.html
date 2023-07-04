@@ -1,0 +1,40 @@
+<!-- eliminar_registro.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Eliminar Registro</h1>
+
+  <p>¿Estás seguro de que deseas eliminar el siguiente registro?</p>
+
+  <table>
+    <tr>
+      <th>Número de Registro</th>
+      <th>Nombres y Apellidos</th>
+      <th>Puesto Institucional</th>
+      <th>Unidad a la que Pertenece</th>
+      <th>Dirección Institucional</th>
+      <th>Ciudad donde Labora</th>
+      <th>Teléfono Institucional</th>
+      <th>Extensión Telefónica</th>
+      <th>Correo Electrónico</th>
+    </tr>
+    <tr>
+      <td>{{ registro.numero_registro }}</td>
+      <td>{{ registro.nombres_apellidos }}</td>
+      <td>{{ registro.puesto_institucional }}</td>
+      <td>{{ registro.unidad_pertenece }}</td>
+      <td>{{ registro.direccion_institucional }}</td>
+      <td>{{ registro.ciudad_labora }}</td>
+      <td>{{ registro.telefono_institucional }}</td>
+      <td>{{ registro.extension_telefonica }}</td>
+      <td>{{ registro.correo_electronico }}</td>
+    </tr>
+  </table>
+
+  <form method="POST" action="{% url 'directorio:eliminar_registro' registro.numero_registro %}">
+    {% csrf_token %}
+    <input type="submit" value="Eliminar">
+    <a href="{% url 'directorio:lista_registros' %}">Cancelar</a>
+  </form>
+{% endblock %}
