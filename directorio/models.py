@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
 
 # Create your models here.
 
@@ -24,6 +23,13 @@ class Registro(models.Model):
             else:
                 self.numero_registro = 1
         super().save(*args, **kwargs)
+
+    @staticmethod
+    def update_numeros_registro():
+        registros = Registro.objects.order_by('id')
+        for index, registro in enumerate(registros, start=1):
+            registro.numero_registro = index
+            registro.save(update_fields=['numero_registro'])
 
     def __str__(self):
         return self.nombres_apellidos
@@ -54,4 +60,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return self.emai
+        return self.email

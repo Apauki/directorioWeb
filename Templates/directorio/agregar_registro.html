@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+    <p>¡Bienvenido, {{ user.email }}!</p>
+    {% endif %}
     <h1>Crear nuevo registro</h1>
     <form method="POST">
         {% csrf_token %}

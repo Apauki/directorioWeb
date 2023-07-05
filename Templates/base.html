@@ -5,13 +5,15 @@
 </head>
 <body>
     <header>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
         <!-- Aquí puedes incluir el encabezado común de tu sitio -->
-        <h1>Directorio interno INAMHI</h1>
+        <center><h1>Directorio interno INAMHI</h1></center>
         <nav>
             <!-- Aquí puedes incluir la navegación común de tu sitio -->
             <ul>
-                <li><a href="/directorio/agregar_registro">Inicio</a></li>
-                <li><a href="/directorio/lista_registros/">Contactos</a></li>
+                <li><a href="/directorio/agregar_registro">Agregar nuevo contacto</a></li>
+                <li><a href="/directorio/lista_registros/">Lista de contactos</a></li>
             </ul>
         </nav>
     </header>

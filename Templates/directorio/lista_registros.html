@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
+  {% if user.is_authenticated %}
+  <p>¡Bienvenido, {{ user.email }}!</p>
+  {% endif %}
   <h1>Lista de Registros</h1>
-  
   {% if registros %}
-    <table>
+    <table class="contact-table">
       <thead>
         <tr>
           <th>Número de Registro</th>
@@ -34,6 +37,8 @@
             <td>{{ registro.correo_electronico }}</td>
             <td>
               <a href="{% url 'directorio:editar_registro' registro.numero_registro %}">Editar</a>
+            </td>
+            <td>
               <a href="{% url 'directorio:eliminar_registro' registro.numero_registro %}">Eliminar</a>
             </td>
           </tr>

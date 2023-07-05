@@ -1,0 +1,19 @@
+/* Estilos para la tabla de contactos */
+.contact-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .contact-table th,
+  .contact-table td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  
+  .contact-table th {
+    background-color: #ddcf08;
+  }
+  
+  .contact-table td {
+    background-color: rgb(102, 186, 219);
+  }
