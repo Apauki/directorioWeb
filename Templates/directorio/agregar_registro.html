@@ -5,7 +5,7 @@
     {% if user.is_authenticated %}
     <p>¡Bienvenido, {{ user.email }}!</p>
     {% endif %}
-    <h1>Crear nuevo registro</h1>
+    <h2>Crear nuevo registro</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}

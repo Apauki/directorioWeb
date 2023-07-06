@@ -1,16 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Registro, User
 from .forms import RegistroForm, UsuarioForm, LoginForm
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, logout
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+def es_superusuario(user):
+    return user.is_superuser
 
 @login_required
 def lista_registros(request):
     user = request.user
     registros = Registro.objects.all()
-    return render(request, 'directorio/lista_registros.html', {'registros': registros})
+    return render(request, 'directorio/lista_registros.html', {'registros': registros, 'user': request.user})
 
+@user_passes_test(es_superusuario)
 def agregar_registro(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
@@ -51,7 +55,7 @@ def registroUsuario_view(request):
             user.email = form.cleaned_data['email']
             user.save()
             auth_login(request, user)
-            return redirect('login_view')
+            return redirect('login')
     else:
         form = UsuarioForm()
     return render(request, 'registration/registroUsuario.html', {'form': form})
@@ -77,3 +81,7 @@ def login_view(request):
         'form': form
     }
     return render(request, 'registration/login.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('directorio/', include('directorio.urls')),
     path('accounts/register/', views.registroUsuario_view, name='registro_usuario'),
-    path('accounts/login/', views.login_view, name='login_view'),
+    path('accounts/login/', views.login_view, name='login'),
+    path('accounts/logout/', views.logout_view, name='logout'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

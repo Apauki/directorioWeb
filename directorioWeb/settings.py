@@ -48,7 +48,11 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'directorio:lista_registros'
 AUTH_USER_MODEL = 'directorio.User'
 
-SESSION_COOKIE_NAME = 'sesion_directorio'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
 
 TEMPLATES = [
     {

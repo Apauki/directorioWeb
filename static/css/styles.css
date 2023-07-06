@@ -1,19 +1,96 @@
-/* Estilos para la tabla de contactos */
+/* Estilos para la tabla de registros */
 .contact-table {
+    font-family: 'Arial', sans-serif;
     border-collapse: collapse;
     width: 100%;
+    border-radius: 10px;
   }
   
-  .contact-table th,
-  .contact-table td {
-    border: 1px solid black;
+  .contact-table td, .contact-table th {
+    border: 1px solid #ddd;
     padding: 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center;
+  }
+  
+  .contact-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .contact-table tr:hover {
+    background-color: #75c1ff;
   }
   
   .contact-table th {
-    background-color: #ddcf08;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #00196b;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+  }
+
+/* Estilos generales */
+body {
+    background-color: #cff5fa; /* Fondo celeste */
+    color: #333333; /* Texto en negro */
+    font-family: Arial, Helvetica, sans-serif;
   }
   
-  .contact-table td {
-    background-color: rgb(102, 186, 219);
+  /* Estilos del encabezado */
+  header {
+    background-color: #00196b; /* Fondo amarillo */
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #ffffff; /* Título en negro */
+  }
+  
+  /* Estilos de los botones */
+  button {
+    background-color: #263bf8; /* Fondo amarillo */
+    color: #ffffff; /* Texto en negro */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #8FDDE7; /* Fondo celeste al pasar el mouse */
+    color: #ffffff; /* Texto en negro */
+  }
+  
+  /* Estilos de los enlaces */
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #2331ff; /* Enlaces al pasar el mouse */
+  }
+
+  .logo {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    width: 50;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    float: left;
+  }
+  
+  a {
+    display: block;
+    padding: 0px;
+    background-color: #00196b;
   }

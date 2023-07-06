@@ -5,12 +5,12 @@
   {% if user.is_authenticated %}
   <p>¡Bienvenido, {{ user.email }}!</p>
   {% endif %}
-  <h1>Lista de Registros</h1>
+  <h2>Lista de Registros</h2>
   {% if registros %}
     <table class="contact-table">
       <thead>
         <tr>
-          <th>Número de Registro</th>
+          <th>N°</th>
           <th>Nombres y Apellidos</th>
           <th>Puesto Institucional</th>
           <th>Unidad a la que Pertenece</th>
@@ -19,8 +19,10 @@
           <th>Teléfono Institucional</th>
           <th>Extensión Telefónica</th>
           <th>Correo Electrónico</th>
+          {% if user.is_superuser %}
           <th>Editar</th>
           <th>Eliminar</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -34,13 +36,21 @@
             <td>{{ registro.ciudad_labora }}</td>
             <td>{{ registro.telefono_institucional }}</td>
             <td>{{ registro.extension_telefonica }}</td>
-            <td>{{ registro.correo_electronico }}</td>
             <td>
-              <a href="{% url 'directorio:editar_registro' registro.numero_registro %}">Editar</a>
+              <a href="mailto:{{ registro.correo_electronico }}" style="background-color: transparent; color: blue;">{{ registro.correo_electronico }}</a>
+            </td>
+            {% if user.is_superuser %}
+            <td>
+              <a href="{% url 'directorio:editar_registro' registro.numero_registro %}">
+                <button class="edit-button">Editar</button>
+              </a>
             </td>
             <td>
-              <a href="{% url 'directorio:eliminar_registro' registro.numero_registro %}">Eliminar</a>
+              <a href="{% url 'directorio:eliminar_registro' registro.numero_registro %}">
+                <button class="delete-button">Eliminar</button>
+              </a>
             </td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>

@@ -1,3 +1,4 @@
+import re
 from django import forms
 from .models import Registro, User
 from django.core.validators import validate_email
@@ -20,10 +21,11 @@ class RegistroForm(forms.ModelForm):
 
     def clean_telefono_institucional(self):
         telefono = self.cleaned_data.get('telefono_institucional')
-        if telefono and not telefono.isdigit():
-            raise forms.ValidationError('Ingresa solo números en el teléfono institucional.')
-        if telefono and len(telefono) > 12:
-            raise forms.ValidationError('El teléfono institucional debe tener máximo 12 dígitos.')
+        if telefono:
+            if not re.match(r'^[0-9()\-\s]+$', telefono):
+                raise forms.ValidationError('Ingresa solo números y caracteres especiales en el teléfono institucional.')
+            if len(telefono) > 14:
+                raise forms.ValidationError('El teléfono institucional debe tener máximo 14 caracteres. (incluyendo espacios y caracteres especiales)')
         return telefono
     
     def clean_correo_electronico(self):
@@ -38,7 +40,7 @@ class RegistroForm(forms.ModelForm):
         extension_telefonica = self.cleaned_data.get('extension_telefonica')
         if extension_telefonica and not extension_telefonica.isdigit():
             raise forms.ValidationError('Ingresa solo números en la extensión telefónica.')
-        if extension_telefonica and len(extension_telefonica) > 3:
+        if extension_telefonica and len(extension_telefonica) > 10:
             raise forms.ValidationError('La extensión telefónica debe tener máximo 3 dígitos.')
         return extension_telefonica
     
