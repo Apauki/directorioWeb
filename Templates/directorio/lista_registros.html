@@ -2,9 +2,6 @@
 
 
 {% block content %}
-  {% if user.is_authenticated %}
-  <p>¡Bienvenido, {{ user.email }}!</p>
-  {% endif %}
   <h2>Lista de Registros</h2>
   {% if registros %}
     <table class="contact-table">

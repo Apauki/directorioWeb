@@ -40,13 +40,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'directorioWeb.urls'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
 LOGIN_REDIRECT_URL = 'directorio:lista_registros'
-AUTH_USER_MODEL = 'directorio.User'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_SECURE = True

@@ -1,17 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
-    <h2>Iniciar sesión</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.email.label_tag }}
-        {{ form.email }}
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        <button type="submit">Iniciar sesión</button>
-    </form>
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+  <h2>Iniciar sesión</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Iniciar sesión</button>
+  </form>
 {% endblock %}

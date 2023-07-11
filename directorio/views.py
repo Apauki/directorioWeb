@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Registro, User
-from .forms import RegistroForm, UsuarioForm, LoginForm
-from django.contrib.auth import login as auth_login, logout
-from django.conf import settings
+from .models import Registro
+from .forms import RegistroForm
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 def es_superusuario(user):
@@ -49,38 +49,25 @@ def eliminar_registro(request, numero_registro):
 
 def registroUsuario_view(request):
     if request.method == 'POST':
-        form = UsuarioForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.email = form.cleaned_data['email']
-            user.save()
-            auth_login(request, user)
-            return redirect('login')
+            user = form.save()
+            return redirect('login')  # Redirigir a la página de login después del registro
     else:
-        form = UsuarioForm()
+        form = UserCreationForm()
+    
     return render(request, 'registration/registroUsuario.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = User.objects.filter(email=email).first()
-            if user is not None and user.check_password(password):
-
-                auth_login(request, user)
-                return redirect('directorio:lista_registros')
-            else:
-                error_message = 'Correo electrónico o contraseña incorrectos.'
-                return render(request, 'registration/login.html', {'form': form, 'error_message': error_message})
+            user = form.get_user()
+            login(request, user)
+            return redirect('directorio/lista_registros')  # Redirigir a la página de lista_registros después del inicio de sesión
     else:
-        form = LoginForm()
-    
-    context = {
-        'form': form
-    }
-    return render(request, 'registration/login.html', context)
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form':form})
 
 def logout_view(request):
     logout(request)

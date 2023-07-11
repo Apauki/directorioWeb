@@ -1,9 +1,8 @@
 import re
 from django import forms
-from .models import Registro, User
+from .models import Registro
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserChangeForm
 
 class RegistroForm(forms.ModelForm):
     class Meta:
@@ -44,51 +43,3 @@ class RegistroForm(forms.ModelForm):
             raise forms.ValidationError('La extensión telefónica debe tener máximo 3 dígitos.')
         return extension_telefonica
     
-class UsuarioForm(forms.ModelForm):
-    email = forms.EmailField(max_length=254, help_text='Ingrese su email. Con esto va a iniciar sesión posteriormente')
-    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput)
-
-    class Meta:
-        model = User
-        fields = ['email', 'password1', 'password2']
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden.")
-        return password2
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
-
-class LoginForm(forms.Form):
-    email = forms.EmailField(max_length=254, help_text='Ingrese su correo electrónico')
-    password = forms.CharField(widget=forms.PasswordInput, help_text='Ingrese su contraseña')
-
-class UserUpdateForm(UserChangeForm):
-    is_staff = forms.BooleanField(label=_('Staff status'), required=False)
-    is_superuser = forms.BooleanField(label=_('Superuser status'), required=False)
-
-    class Meta:
-        model = User
-        fields = ['email', 'password']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['is_staff'].initial = self.instance.is_staff
-        self.fields['is_superuser'].initial = self.instance.is_superuser
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_staff = self.cleaned_data['is_staff']
-        user.is_superuser = self.cleaned_data['is_superuser']
-        if commit:
-            user.save()
-            self.save_m2m()
-        return user
