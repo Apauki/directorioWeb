@@ -3,12 +3,20 @@
 
 {% block content %}
   <h2>Lista de Registros</h2>
+
+  <!- Búsqueda de regitros ->
+  <form method="GET" action="{% url 'directorio:lista_registros' %}">
+    <input type="text" name="search_query" placeholder="Buscar registros">
+    <button type="submit">Buscar</button>
+  </form>
+
   {% if registros %}
     <table class="contact-table">
       <thead>
         <tr>
           <th>N°</th>
           <th>Nombres y Apellidos</th>
+          <th>Cédula</th>
           <th>Puesto Institucional</th>
           <th>Unidad a la que Pertenece</th>
           <th>Dirección Institucional</th>
@@ -27,6 +35,7 @@
           <tr>
             <td>{{ registro.numero_registro }}</td>
             <td>{{ registro.nombres_apellidos }}</td>
+            <td>{{ registro.cedula }}</td>
             <td>{{ registro.puesto_institucional }}</td>
             <td>{{ registro.unidad_pertenece }}</td>
             <td>{{ registro.direccion_institucional }}</td>

@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class Registro(models.Model):
     numero_registro = models.IntegerField(unique=True)
     nombres_apellidos = models.CharField(max_length=255)
+    cedula = models.CharField(max_length=10)
     puesto_institucional = models.CharField(max_length=255)
     unidad_pertenece = models.CharField(max_length=255)
     direccion_institucional = models.CharField(max_length=255)
