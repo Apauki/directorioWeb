@@ -39,18 +39,18 @@ body {
   
   /* Estilos del encabezado */
   header {
-    background-color: #00196b; /* Fondo amarillo */
+    background-color: #00196b;
     padding: 20px;
   }
   
   h1 {
-    color: #ffffff; /* Título en negro */
+    color: #ffffff;
   }
   
   /* Estilos de los botones */
   button {
-    background-color: #263bf8; /* Fondo amarillo */
-    color: #ffffff; /* Texto en negro */
+    background-color: #263bf8;
+    color: #ffffff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -59,7 +59,7 @@ body {
   
   button:hover {
     background-color: #8FDDE7; /* Fondo celeste al pasar el mouse */
-    color: #ffffff; /* Texto en negro */
+    color: #ffffff;
   }
   
   /* Estilos de los enlaces */
@@ -88,9 +88,14 @@ body {
   li {
     float: left;
   }
+
   
   a {
     display: block;
     padding: 0px;
     background-color: #00196b;
+  }
+
+  center .txt {
+    color: white;
   }

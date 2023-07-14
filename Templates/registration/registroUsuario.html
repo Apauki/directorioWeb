@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <h2>Registro de Usuario</h2>
-  <form method="POST" action="{% url 'register' %}">
+  <form method="POST" action="{% url 'register' %}" class="password-suggestions">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Registrarse</button>

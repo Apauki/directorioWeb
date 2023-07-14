@@ -40,7 +40,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'directorioWeb.urls'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -108,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Guayaquil'
 
 USE_I18N = True
 

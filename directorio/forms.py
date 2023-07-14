@@ -1,5 +1,6 @@
 import re
 from django import forms
+from django.forms import PasswordInput
 from .models import Registro
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError

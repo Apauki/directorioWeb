@@ -80,7 +80,6 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form':form})
 
-def logout_view(LogoutView):
-    def get_next_page(self):
-        # Personaliza la redirección después del cierre de sesión en tu aplicación
-        return redirect('login')
+def logout_view(request):
+    logout(request)
+    return redirect('login')
