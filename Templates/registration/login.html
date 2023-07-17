@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}Inicio de sesión{% endblock %}
+
 {% block content %}
-  <h2>Iniciar sesión</h2>
+<div class='form-container'>
+  <h2 class="form-h2">Iniciar sesión</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Iniciar sesión</button>
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="forms-button">Iniciar sesión</button>
   </form>
+</div>
 {% endblock %}

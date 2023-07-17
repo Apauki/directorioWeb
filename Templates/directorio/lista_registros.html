@@ -7,7 +7,7 @@
   <!- Búsqueda de regitros ->
   <form method="GET" action="{% url 'directorio:lista_registros' %}">
     <input type="text" name="search_query" placeholder="Buscar registros">
-    <button type="submit">Buscar</button>
+    <button type="submit" class="search-button">Buscar</button>
   </form>
 
   {% if registros %}
@@ -48,12 +48,12 @@
             {% if user.is_superuser %}
             <td>
               <a href="{% url 'directorio:editar_registro' registro.numero_registro %}">
-                <button class="edit-button">Editar</button>
+                <button class="forms-button">Editar</button>
               </a>
             </td>
             <td>
               <a href="{% url 'directorio:eliminar_registro' registro.numero_registro %}">
-                <button class="delete-button">Eliminar</button>
+                <button class="forms-button">Eliminar</button>
               </a>
             </td>
             {% endif %}
