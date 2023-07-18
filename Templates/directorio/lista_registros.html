@@ -14,7 +14,7 @@
     <table class="contact-table">
       <thead>
         <tr>
-          <th>N°</th>
+          <th class="numero-registro">N°</th>
           <th>Nombres y Apellidos</th>
           <th>Cédula</th>
           <th>Puesto Institucional</th>
@@ -33,7 +33,7 @@
       <tbody>
         {% for registro in registros %}
           <tr>
-            <td>{{ registro.numero_registro }}</td>
+            <td class="numero-registro">{{ registro.numero_registro }}</td>
             <td>{{ registro.nombres_apellidos }}</td>
             <td>{{ registro.cedula }}</td>
             <td>{{ registro.puesto_institucional }}</td>

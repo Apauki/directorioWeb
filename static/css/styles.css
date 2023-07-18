@@ -4,16 +4,17 @@
     border-collapse: collapse;
     width: 100%;
     border-radius: 10px;
+    table-layout: auto;
   }
   
   .contact-table td, .contact-table th {
-    display: inline-block;
-    vertical-align: inherit;
+    vertical-align: middle;
     font-weight: bold;
     border: 1px solid #ddd;
-    padding: 8px;
-    border-radius: 10px;
     font-size: 10px;
+    box-sizing: border-box;
+    display: table-cell;
+    padding: 8px;
     text-align: center;
   }
   
@@ -41,14 +42,63 @@ body {
   }
 
 /* Estilos del encabezado */
+
+/*header {
+  background-color: #00196b;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+*/
+
 header {
   background-color: #00196b;
   padding: 20px;
 }
-  
-h1 {
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.text-container {
+  margin-left: auto;
+}
+
+.welcome-message {
   color: #ffffff;
 }
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  margin-right: 20px;
+}
+
+.header-text {
+  text-align: center;
+}
+
+h1, h3 {
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+/*
+h1, h3 {
+  text-align: center;
+}
+*/
 
 h2 {
   display: block;
@@ -70,7 +120,11 @@ h2 {
   font-weight: bold;
 }
 
-  
+h3 {
+  color: white;
+  font-size: small;
+}
+
 /* Estilos de los botones */
 .forms-button {
   background-color: #263bf8;
@@ -101,18 +155,21 @@ button:hover {
 a {
   color: #ffffff;
   text-decoration: none;
+  display: block;
+  padding: 0px;
 }
   
 a:hover {
   color: #2331ff; /* Enlaces al pasar el mouse */
 }
 
+/* Estilos del logo 
 .logo {
-  position: absolute;
-  top: 2%;
-  right: 1%;
-  width: 50;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
+*/
 
 ul {
   list-style-type: none;
@@ -125,11 +182,9 @@ li {
   padding-bottom: 30px;
 }
 
-  
-a {
-  display: block;
-  padding: 0px;
-  background-color: #00196b;
+nav li .nav-li{
+  float: inline-start;
+  padding-right: 0px;
 }
 
 th {
@@ -144,10 +199,6 @@ td {
   vertical-align: text-bottom;
 }
 
-center .txt {
-  color: white;
-  font-size: small;
-}
 
 /* Estilos del formulario de registro */
 .form-container {
@@ -167,8 +218,28 @@ form input {
 
 @media screen and (max-width: 767px) {
   /* Estilos para dispositivos móviles */
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  nav ul {
+    margin-top: 20px;
+  }
+
   form {
     width: 100%;
     margin: 0 auto;
+  }
+
+  .form-h2 {
+    margin-block-start: -1.17em;
+    font-size: 2.5em;
   }
 }

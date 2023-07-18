@@ -11,18 +11,29 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-        {% if user.is_authenticated %}
-        <text class="txt">¡Bienvenido, {{ user.username|capfirst }}!</text>
-        {% endif %}
-
         <!-- Aquí puedes incluir el encabezado común de tu sitio -->
-        <center>           
+        
+
+        <div class="header-content">
+            
+            <div class="logo-container">
+                <img src="{% static 'images/logo.png' %}" alt="Logo de la empresa" class="logo">
+            </div>
+
+            <div class="text-container">
+                {% if user.is_authenticated %}
+                <text class="welcome-message">¡Bienvenido, {{ user.username|capfirst }}!</text>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="header-text">
             <h1>Directorio interno INAMHI</h1>
             <h3 class="txt">Art. 7 de la Ley Orgánica de Transparencia y Acceso a la Información Pública - LOTAIP</h3>
-            <h3 class="txt">Literal b1) Directorio completo de la institución</h3>      
-        </center>
+            <h3 class="txt">Literal b1) Directorio completo de la institución</h3>
+        </div>
         
-        <img src="{% static 'images/logo.png' %}" alt="Logo de la empresa" class="logo">
+
         <nav>
             <!-- Aquí puedes incluir la navegación común de tu sitio -->
             <ul>
