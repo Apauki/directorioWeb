@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Registro
 from .forms import RegistroForm, CustomUserCreationForm
+from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.views import LogoutView
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -27,6 +27,7 @@ def lista_registros(request):
 
 @user_passes_test(es_superusuario)
 def agregar_registro(request):
+
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
@@ -37,6 +38,7 @@ def agregar_registro(request):
 
     return render(request, 'directorio/agregar_registro.html', {'form': form})
 
+@user_passes_test(es_superusuario)
 def editar_registro(request, numero_registro):
     registro = get_object_or_404(Registro, numero_registro=numero_registro)
 
@@ -50,6 +52,7 @@ def editar_registro(request, numero_registro):
 
     return render(request, 'directorio/editar_registro.html', {'form': form})
 
+@user_passes_test(es_superusuario)
 def eliminar_registro(request, numero_registro):
     registro = get_object_or_404(Registro, numero_registro=numero_registro)
     if request.method == 'POST':
@@ -75,6 +78,14 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+
+            next_url = request.GET.get('?next=')
+            if next_url and not user.is_superuser:
+                # Mostrar un mensaje de error
+                messages.error(request, "Acceso restringido. Esta función es solo para superusuarios.")
+                # Redirigir a una página específica en lugar de volver al formulario de inicio de sesión
+                return redirect('directorio/lista_registros')
+            
             return redirect('directorio/lista_registros')  # Redirigir a la página de lista_registros después del inicio de sesión
     else:
         form = AuthenticationForm()

@@ -5,9 +5,9 @@
   <h2>Lista de Registros</h2>
 
   <!- Búsqueda de regitros ->
-  <form method="GET" action="{% url 'directorio:lista_registros' %}">
-    <input type="text" name="search_query" placeholder="Buscar registros">
-    <button type="submit" class="search-button">Buscar</button>
+  <form method="GET" action="{% url 'directorio:lista_registros' %}" class="search">
+    <input type="text" name="search_query" placeholder="Buscar contacto">
+    <button type="submit">Buscar</button>
   </form>
 
   {% if registros %}

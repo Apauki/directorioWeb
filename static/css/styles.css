@@ -34,6 +34,25 @@
     border-radius: 5px;
   }
 
+  .search {
+    display: flex;
+  }
+
+  .search input{
+    display: block;
+    margin: 10px;
+  }
+
+  .search button {
+    background-color: #263bf8;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 3px 0px 3px 0px;
+  }
+
 /* Estilos generales */
 body {
     background-color: #cff5fa; /* Fondo celeste */
@@ -66,6 +85,22 @@ header {
   align-items: center;
 }
 
+.header-text {
+  text-align: center;
+}
+
+.header-nav{
+  display: flex;
+}
+
+.header-nav li{
+  float: left;
+  padding: 25px 0px 0px 0px;
+  list-style: disclosure-closed;
+  color: white;
+  margin-left: 10px;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -83,10 +118,6 @@ header {
   max-width: 100%;
   height: auto;
   margin-right: 20px;
-}
-
-.header-text {
-  text-align: center;
 }
 
 h1, h3 {
@@ -126,6 +157,7 @@ h3 {
 }
 
 /* Estilos de los botones */
+
 .forms-button {
   background-color: #263bf8;
   color: #ffffff;
@@ -137,15 +169,6 @@ h3 {
   margin: auto;
 }
 
-.search-button {
-  background-color: #263bf8;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-  
 button:hover {
   background-color: #8FDDE7; /* Fondo celeste al pasar el mouse */
   color: #ffffff;
@@ -182,10 +205,7 @@ li {
   padding-bottom: 30px;
 }
 
-nav li .nav-li{
-  float: inline-start;
-  padding-right: 0px;
-}
+
 
 th {
   display: flex;
@@ -210,10 +230,28 @@ td {
   justify-content: center;
 }
 
-form label,
-form input {
+.form-container label,
+.form-container input {
   display: block;
   margin-bottom: 10px;
+}
+
+/* Estilos para formularios de contactos*/
+.contactForm-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactForm-container label,
+.contactForm-container input {
+  display: flex;
+  margin: 10px;
+  padding-right: 15em;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 767px) {

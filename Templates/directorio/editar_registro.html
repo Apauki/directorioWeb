@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block content %}
-  <h1>Editar Registro</h1>
+<div class="contactForm-container">
+  <h2 class="form-h2">Editar Registro</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar cambios</button>
+    {{ form.as_table }}
+    <button type="submit" class="forms-button">Guardar cambios</button>
   </form>
+</div>
 {% endblock %}

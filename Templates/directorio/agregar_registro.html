@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% messages %}
 {% load static %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-    {% endif %}
-    <h2>Crear nuevo registro</h2>
+<div class='contactForm-container'>
+    <h2 class="form-h2">Crear nuevo registro</h2>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        {{ form.as_table }}
+        <button type="submit" class="forms-button">Guardar</button>
     </form>
+</div>
 {% endblock %}

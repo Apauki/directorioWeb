@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block content %}
-  <h1 style="color: black;">Eliminar Registro</h1>
+  <h2 class="form-h2">Eliminar Registro</h2>
 
   <p>¿Estás seguro de que deseas eliminar el siguiente registro?</p>
 
@@ -36,6 +36,6 @@
   <form method="POST" action="{% url 'directorio:eliminar_registro' registro.numero_registro %}">
     {% csrf_token %}
     <input type="submit" value="Eliminar">
-    <a href="{% url 'directorio:lista_registros' %}">Cancelar</a>
   </form>
+  <a href="{% url 'directorio:lista_registros' %}" style="color: red;">Cancelar</a>
 {% endblock %}
