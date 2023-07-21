@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'directorio',
+    'axes'
 ]
 
 MIDDLEWARE = [
@@ -37,15 +38,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'directorioWeb.urls'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'axes.backends.AxesStandaloneBackend',
 ]
 
 LOGIN_REDIRECT_URL = 'directorio:lista_registros'
+
+AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes de bloquear la dirección IP
+AXES_COOLOFF_TIME = 1  # Tiempo (en minutos) durante el cual la dirección IP estará bloqueada
+AXES_LOCKOUT_TEMPLATE = 'registration/intentosFallidos.html'  # Plantilla personalizada para el mensaje de bloqueo (opcional)
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_SECURE = True
