@@ -39,9 +39,9 @@
             <ul>
                 {% if user.is_superuser %}
                 <li><a href="/directorio/agregar_registro" style="margin-right: 30px;">Agregar nuevo contacto</a></li>
-                <li><a href="/directorio/lista_registros/" style="margin-right: 30px;">Lista de contactos</a></li>
                 {% endif %}
                 {% if user.is_authenticated %}
+                <li><a href="/directorio/lista_registros/" style="margin-right: 30px;">Lista de contactos</a></li>
                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
                 {% endif %}
             </ul>

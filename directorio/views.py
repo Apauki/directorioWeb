@@ -27,7 +27,7 @@ def lista_registros(request):
 
     return render(request, 'directorio/lista_registros.html', {'registros': registros, 'user': request.user})
 
-@custom_login_required
+
 def agregar_registro(request):
 
     if not request.user.is_superuser:
@@ -44,7 +44,7 @@ def agregar_registro(request):
 
     return render(request, 'directorio/agregar_registro.html', {'form': form})
 
-@user_passes_test(es_superusuario)
+
 def editar_registro(request, numero_registro):
 
     if not request.user.is_superuser:
@@ -63,7 +63,7 @@ def editar_registro(request, numero_registro):
 
     return render(request, 'directorio/editar_registro.html', {'form': form})
 
-@user_passes_test(es_superusuario)
+
 def eliminar_registro(request, numero_registro):
 
     if not request.user.is_superuser:
