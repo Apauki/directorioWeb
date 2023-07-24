@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-
 class Registro(models.Model):
     numero_registro = models.IntegerField(unique=True)
     nombres_apellidos = models.CharField(max_length=255)
@@ -25,6 +23,7 @@ class Registro(models.Model):
                 self.numero_registro = 1
         super().save(*args, **kwargs)
 
+    # Actualizar número de registro al eliminar
     @staticmethod
     def update_numeros_registro():
         registros = Registro.objects.order_by('id')
@@ -38,8 +37,6 @@ class Registro(models.Model):
 '''
 class User(AbstractUser):
     email = models.EmailField(unique=True, max_length=254)
-    
-    # Agrega aquí tus campos personalizados, si los tienes
     
     # No es necesario definir un UserManager personalizado
 

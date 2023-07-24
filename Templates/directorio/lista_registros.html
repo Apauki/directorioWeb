@@ -6,8 +6,20 @@
 
   <!- Búsqueda de regitros ->
   <form method="GET" action="{% url 'directorio:lista_registros' %}" class="search">
-    <input type="text" name="search_query" placeholder="Buscar contacto">
+    <input type="text" name="search_query" placeholder="Buscar contacto" value="{{ search_query }}">
     <button type="submit">Buscar</button>
+  </form>
+
+  <!- Filtro de ordenamiento (Alfebéticamente o por número de registro) ->
+  <form method="get" class="filter">
+    <label for="ordenamiento">Ordenar:</label>
+    <select id="ordenamiento" name="ordenamiento">
+      <option value="alfabeticamente" {% if ordenamiento == 'alfabeticamente' %}selected{% endif %}>Alfabéticamente</option>
+      <option value="unidad" {% if ordenamiento == 'unidad' %}selected{% endif %}>Por unidad a la que pertenece</option>
+      <option value="por_numero_registro" {% if ordenamiento == 'por_numero_registro' %}selected{% endif %}>Por número de registro</option>
+    </select>
+    <input type="hidden" name="search_query" value="{{ search_query }}">
+    <button type="submit">Aplicar</button>
   </form>
 
   {% if registros %}
@@ -33,7 +45,7 @@
       <tbody>
         {% for registro in registros %}
           <tr>
-            <td class="numero-registro">{{ registro.numero_registro }}</td>
+            <td>{{ registro.numero_registro }}</td>
             <td>{{ registro.nombres_apellidos }}</td>
             <td>{{ registro.cedula }}</td>
             <td>{{ registro.puesto_institucional }}</td>

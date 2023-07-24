@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Registro
 from .forms import RegistroForm, CustomUserCreationForm
@@ -6,10 +7,15 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .decorators import custom_login_required
 
+'''
 def es_superusuario(user):
     return user.is_superuser
+'''
+
+def remover_caracteres_especiales(cadena):
+    # Utilizar una expresión regular para eliminar los caracteres especiales
+    return re.sub(r'[^a-zA-Z0-9]', '', cadena)
 
 @login_required
 def lista_registros(request):
@@ -17,15 +23,34 @@ def lista_registros(request):
     user = request.user
     registros = Registro.objects.all()
 
+    # Filtro de ordenamiente (Alfabéticamente o por número de registro)
+    ordenamiento = request.GET.get('ordenamiento')
+
+    if ordenamiento == 'alfabeticamente':
+        registros = sorted(registros, key=lambda registro: remover_caracteres_especiales(registro.nombres_apellidos).lower())
+    elif ordenamiento == 'unidad':
+        registros = registros.order_by('unidad_pertenece')
+    else:
+        registros = Registro.objects.order_by('numero_registro')
+
     #Búsqueda de registro (query)
     search_query = request.GET.get('search_query')
     if search_query:
         registros = registros.filter(
             Q(nombres_apellidos__icontains=search_query) |
-            Q(cedula__icontains=search_query)
+            Q(cedula__icontains=search_query) |
+            Q(correo_electronico__icontains=search_query)|
+            Q(unidad_pertenece__icontains=search_query)
             )
+        
+    context = {
+        'registros': registros,
+        'user': request.user,
+        'ordenamiento': ordenamiento,  # Agregar el valor del parámetro de ordenamiento al contexto
+        'search_query': search_query
+    }
 
-    return render(request, 'directorio/lista_registros.html', {'registros': registros, 'user': request.user})
+    return render(request, 'directorio/lista_registros.html', context)
 
 
 def agregar_registro(request):
@@ -88,6 +113,7 @@ def registroUsuario_view(request):
     
     return render(request, 'registration/registroUsuario.html', {'form': form})
 
+#Iniciar sesión
 @login_required
 def login_view(request):
 
@@ -101,6 +127,7 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form':form})
 
+# Cerrar sesión
 def logout_view(request):
     logout(request)
     return redirect('login')

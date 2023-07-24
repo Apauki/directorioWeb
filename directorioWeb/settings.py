@@ -50,7 +50,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = 'directorio:lista_registros'
 
-AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes de bloquear la dirección IP
+AXES_FAILURE_LIMIT = 3  # Número de intentos fallidos antes de bloquear la dirección IP
 AXES_COOLOFF_TIME = 1  # Tiempo (en minutos) durante el cual la dirección IP estará bloqueada
 AXES_LOCKOUT_TEMPLATE = 'registration/intentosFallidos.html'  # Plantilla personalizada para el mensaje de bloqueo (opcional)
 

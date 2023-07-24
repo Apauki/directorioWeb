@@ -9,9 +9,8 @@
   
   .contact-table td, .contact-table th {
     vertical-align: middle;
-    font-weight: bold;
     border: 1px solid #ddd;
-    font-size: 10px;
+    font-size: 12px;
     box-sizing: border-box;
     display: table-cell;
     padding: 8px;
@@ -32,6 +31,7 @@
     background-color: #00196b;
     color: rgb(255, 255, 255);
     border-radius: 5px;
+    font-weight: bold;
   }
 
   .search {
@@ -51,6 +51,11 @@
       border-radius: 5px;
       cursor: pointer;
       margin: 3px 0px 3px 0px;
+  }
+
+  .filter {
+    display: flex;
+    justify-content: flex-end;
   }
 
 /* Estilos generales */
@@ -183,7 +188,7 @@ a {
 }
   
 a:hover {
-  color: #2331ff; /* Enlaces al pasar el mouse */
+  color: #fae105; /* Enlaces al pasar el mouse */
 }
 
 /* Estilos del logo 
