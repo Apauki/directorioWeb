@@ -8,6 +8,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+
+# Constantes para identificar los campos de ordenamiento
+ORDEN_ALFABETICO = 'nombres_apellidos'
+ORDEN_NUMERO_REGISTRO = 'numero_registro'
+ORDEN_UNIDAD_PERTENECE = 'unidad_pertenece'
+
+
 '''
 def es_superusuario(user):
     return user.is_superuser
@@ -17,37 +24,31 @@ def remover_caracteres_especiales(cadena):
     # Utilizar una expresión regular para eliminar los caracteres especiales
     return re.sub(r'[^a-zA-Z0-9]', '', cadena)
 
+
 @login_required
 def lista_registros(request):
 
     user = request.user
     registros = Registro.objects.all()
 
-    # Filtro de ordenamiente (Alfabéticamente o por número de registro)
-    ordenamiento = request.GET.get('ordenamiento')
-
-    if ordenamiento == 'alfabeticamente':
-        registros = sorted(registros, key=lambda registro: remover_caracteres_especiales(registro.nombres_apellidos).lower())
-    elif ordenamiento == 'unidad':
-        registros = registros.order_by('unidad_pertenece')
-    else:
-        registros = Registro.objects.order_by('numero_registro')
-
     #Búsqueda de registro (query)
-    search_query = request.GET.get('search_query')
+    search_query = request.GET.get('search_query', '')
     if search_query:
-        registros = registros.filter(
-            Q(nombres_apellidos__icontains=search_query) |
-            Q(cedula__icontains=search_query) |
-            Q(correo_electronico__icontains=search_query)|
-            Q(unidad_pertenece__icontains=search_query)
-            )
+        filtro_busqueda =   Q(nombres_apellidos__icontains=search_query) | \
+                            Q(cedula__icontains=search_query) | \
+                            Q(correo_electronico__icontains=search_query) | \
+                            Q(unidad_pertenece__icontains=search_query)
+        registros = Registro.objects.filter(filtro_busqueda)
+
+    # Filtro de ordenamiento
+    ordenar_por = request.GET.get('ordenar_por', 'numero_registro')
+    registros = registros.order_by(ordenar_por)
         
     context = {
         'registros': registros,
         'user': request.user,
-        'ordenamiento': ordenamiento,  # Agregar el valor del parámetro de ordenamiento al contexto
-        'search_query': search_query
+        'search_query': search_query,
+        'ordenar_por': ordenar_por,
     }
 
     return render(request, 'directorio/lista_registros.html', context)

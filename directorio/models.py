@@ -22,7 +22,7 @@ class Registro(models.Model):
             else:
                 self.numero_registro = 1
         super().save(*args, **kwargs)
-
+        
     # Actualizar número de registro al eliminar
     @staticmethod
     def update_numeros_registro():
