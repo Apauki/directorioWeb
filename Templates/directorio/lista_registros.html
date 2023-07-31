@@ -18,15 +18,29 @@
             <a href="?ordenar_por=numero_registro">N°</a>
           </th>
           <th>
-            <a href="?ordenar_por=nombres_apellidos">Nombres y Apellidos</a>
+            <a href="?ordenar_por=nombres_apellidos">Apellidos y Nombres</a>
           </th>
-          <th>Cédula</th>
-          <th>Puesto Institucional</th>
-          <th>Unidad a la que Pertenece</th>
-          <th>Dirección Institucional</th>
-          <th>Ciudad en la que Labora</th>
-          <th>Teléfono Institucional</th>
-          <th>Extensión Telefónica</th>
+          <th>
+            <a href="?ordenar_por=cedula">Cédula</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=puesto_institucional">Puesto Institucional</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=unidad_pertenece">Unidad a la que Pertenece</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=direccion_institucional">Dirección Institucional</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=ciudad_labora">Ciudad en la que Labora</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=telefono_institucional">Teléfono Institucional</a>
+          </th>
+          <th>
+            <a href="?ordenar_por=extension_telefonica">Extensión Telefónica</a>
+          </th>
           <th>Correo Electrónico</th>
           {% if user.is_superuser %}
           <th>Editar</th>
@@ -65,6 +79,11 @@
         {% endfor %}
       </tbody>
     </table>
+
+    <div class="reporteContainer">
+      <a href="?excel">Descargar Reporte en Excel (XLSX)</a>
+      <a href="?csv">Descargar Reporte en CSV</a>
+    </div>
   {% else %}
     <p>No hay registros disponibles.</p>
   {% endif %}

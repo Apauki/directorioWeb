@@ -264,6 +264,15 @@ input[type="text" i] {
   padding: 1px 2px;
 }
 
+/* Reportes Excel y CSV */
+.reporteContainer {
+  display: flex;
+}
+
+.reporteContainer a{
+  color: black;
+}
+
 @media screen and (max-width: 767px) {
   /* Estilos para dispositivos móviles */
   header {

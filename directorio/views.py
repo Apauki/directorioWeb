@@ -1,18 +1,17 @@
 import re
+import openpyxl
+import csv
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Registro
-from .forms import RegistroForm, CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models.functions import Lower
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
-
-# Constantes para identificar los campos de ordenamiento
-ORDEN_ALFABETICO = 'nombres_apellidos'
-ORDEN_NUMERO_REGISTRO = 'numero_registro'
-ORDEN_UNIDAD_PERTENECE = 'unidad_pertenece'
+from .models import Registro
+from .forms import RegistroForm, CustomUserCreationForm
 
 
 '''
@@ -42,7 +41,19 @@ def lista_registros(request):
 
     # Filtro de ordenamiento
     ordenar_por = request.GET.get('ordenar_por', 'numero_registro')
-    registros = registros.order_by(ordenar_por)
+
+    if ordenar_por == 'nombres_apellidos':
+        registros = registros.annotate(nombres_apellidos_lower=Lower('nombres_apellidos'))
+        registros = sorted(registros, key=lambda registro: remover_caracteres_especiales(registro.nombres_apellidos_lower))
+    else:
+        # Ordenar por el campo especificado sin aplicar ordenamiento sensible al idioma
+        registros = registros.order_by(ordenar_por)
+
+    # Funciones para generar reporte
+    if 'excel' in request.GET:
+        return generar_reporte_excel(registros)
+    elif 'csv' in request.GET:
+        return generar_reporte_csv(registros)
         
     context = {
         'registros': registros,
@@ -132,3 +143,39 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+# Creación de reporte Excel y CSV
+def generar_reporte_excel(registros):
+    libro = openpyxl.Workbook()
+    hoja = libro.active
+    hoja.append(['N°', 'Apellidos y Nombres', 'Cédula', 'Puesto Institucional', 'Unidad a la que Pertenece',
+                 'Dirección Institucional', 'Ciudad en la que Labora', 'Teléfono Institucional', 'Extensión Telefónica',
+                 'Correo Electrónico'])
+
+    for registro in registros:
+        hoja.append([registro.numero_registro, registro.nombres_apellidos, registro.cedula,
+                     registro.puesto_institucional, registro.unidad_pertenece, registro.direccion_institucional,
+                     registro.ciudad_labora, registro.telefono_institucional, registro.extension_telefonica,
+                     registro.correo_electronico])
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=reporte_registros.xlsx'
+    libro.save(response)
+    return 
+
+def generar_reporte_csv(registros):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=reporte_registros.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['N°', 'Apellidos y Nombres', 'Cédula', 'Puesto Institucional', 'Unidad a la que Pertenece',
+                     'Dirección Institucional', 'Ciudad en la que Labora', 'Teléfono Institucional', 'Extensión Telefónica',
+                     'Correo Electrónico'])
+
+    for registro in registros:
+        writer.writerow([registro.numero_registro, registro.nombres_apellidos, registro.cedula,
+                         registro.puesto_institucional, registro.unidad_pertenece, registro.direccion_institucional,
+                         registro.ciudad_labora, registro.telefono_institucional, registro.extension_telefonica,
+                         registro.correo_electronico])
+
+    return response
