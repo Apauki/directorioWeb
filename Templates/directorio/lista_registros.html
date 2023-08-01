@@ -52,10 +52,10 @@
         {% for registro in registros %}
           <tr>
             <td>{{ registro.numero_registro }}</td>
-            <td>{{ registro.nombres_apellidos }}</td>
+            <td>{{ registro.nombres_apellidos|upper }}</td>
             <td>{{ registro.cedula }}</td>
-            <td>{{ registro.puesto_institucional }}</td>
-            <td>{{ registro.unidad_pertenece }}</td>
+            <td>{{ registro.puesto_institucional|upper }}</td>
+            <td>{{ registro.unidad_pertenece|upper }}</td>
             <td>{{ registro.direccion_institucional }}</td>
             <td>{{ registro.ciudad_labora }}</td>
             <td>{{ registro.telefono_institucional }}</td>
@@ -80,10 +80,12 @@
       </tbody>
     </table>
 
+    {% if user.is_superuser %}
     <div class="reporteContainer">
       <a href="?excel">Descargar Reporte en Excel (XLSX)</a>
       <a href="?csv">Descargar Reporte en CSV</a>
     </div>
+    {% endif %}
   {% else %}
     <p>No hay registros disponibles.</p>
   {% endif %}

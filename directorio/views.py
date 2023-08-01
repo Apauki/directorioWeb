@@ -10,6 +10,8 @@ from django.db.models.functions import Lower
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
+from unidecode import unidecode
+
 from .models import Registro
 from .forms import RegistroForm, CustomUserCreationForm
 
@@ -19,9 +21,13 @@ def es_superusuario(user):
     return user.is_superuser
 '''
 
+# Función para ordenamiento insensible a caracteres especiales
 def remover_caracteres_especiales(cadena):
     # Utilizar una expresión regular para eliminar los caracteres especiales
     return re.sub(r'[^a-zA-Z0-9]', '', cadena)
+
+def normalize_string(string):
+    return unidecode(string).lower()
 
 
 @login_required
@@ -35,8 +41,14 @@ def lista_registros(request):
     if search_query:
         filtro_busqueda =   Q(nombres_apellidos__icontains=search_query) | \
                             Q(cedula__icontains=search_query) | \
-                            Q(correo_electronico__icontains=search_query) | \
-                            Q(unidad_pertenece__icontains=search_query)
+                            Q(puesto_institucional__icontains=search_query) | \
+                            Q(unidad_pertenece__icontains=search_query) | \
+                            Q(direccion_institucional__icontains=search_query) | \
+                            Q(ciudad_labora__icontains=search_query) | \
+                            Q(telefono_institucional__icontains=search_query) | \
+                            Q(extension_telefonica__icontains=search_query) | \
+                            Q(correo_electronico__icontains=search_query)
+
         registros = Registro.objects.filter(filtro_busqueda)
 
     # Filtro de ordenamiento
@@ -54,6 +66,7 @@ def lista_registros(request):
         return generar_reporte_excel(registros)
     elif 'csv' in request.GET:
         return generar_reporte_csv(registros)
+
         
     context = {
         'registros': registros,
@@ -159,9 +172,9 @@ def generar_reporte_excel(registros):
                      registro.correo_electronico])
 
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=reporte_registros.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=directorio_inamhi.xlsx'
     libro.save(response)
-    return 
+    return response
 
 def generar_reporte_csv(registros):
     response = HttpResponse(content_type='text/csv')

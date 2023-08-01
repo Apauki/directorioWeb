@@ -271,14 +271,17 @@ input[type="text" i] {
 
 .reporteContainer a{
   color: black;
+  margin-right: 1em;
 }
 
 @media screen and (max-width: 767px) {
   /* Estilos para dispositivos móviles */
   header {
+    display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: center;
   }
 
   .logo {

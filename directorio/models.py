@@ -14,6 +14,11 @@ class Registro(models.Model):
     correo_electronico = models.EmailField()
 
     def save(self, *args, **kwargs):
+
+        self.nombres_apellidos = self.nombres_apellidos.lower()
+        self.puesto_institucional = self.puesto_institucional.lower()
+        self.unidad_pertenece = self.unidad_pertenece.lower()
+
         if not self.pk:
             # Nuevo registro, asignar número automático
             ultimo_registro = Registro.objects.order_by('-numero_registro').first()
