@@ -178,7 +178,7 @@ def generar_reporte_excel(registros):
 
 def generar_reporte_csv(registros):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=reporte_registros.csv'
+    response['Content-Disposition'] = 'attachment; filename=directorio_inamhi.csv'
 
     writer = csv.writer(response)
     writer.writerow(['N°', 'Apellidos y Nombres', 'Cédula', 'Puesto Institucional', 'Unidad a la que Pertenece',
