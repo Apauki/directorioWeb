@@ -11,4 +11,4 @@ urlpatterns = [
     path('eliminar_registro/<int:numero_registro>/', views.eliminar_registro, name='eliminar_registro'),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

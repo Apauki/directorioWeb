@@ -139,7 +139,6 @@ def registroUsuario_view(request):
     return render(request, 'registration/registroUsuario.html', {'form': form})
 
 #Iniciar sesión
-@login_required
 def login_view(request):
 
     if request.method == 'POST':

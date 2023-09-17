@@ -15,4 +15,4 @@ urlpatterns = [
     path('accounts/register/', directorio_views.registroUsuario_view, name='register'),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
